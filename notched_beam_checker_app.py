@@ -202,7 +202,7 @@ with tab1:
             return 'background-color: #f8d7da; color: #721c24'
         return ''
     
-    styled_df = df_u.style.applymap(color_status, subset=['Status'])
+    styled_df = df_u.style.map(color_status, subset=['Status'])
     st.dataframe(styled_df, use_container_width=True, height=280)
     
     # Summary metrics
