@@ -25,7 +25,7 @@ st.sidebar.subheader("Fire Design Parameters")
 t_char = st.sidebar.number_input("Char depth (inches)", value=3.2, min_value=0.0, step=0.1)
 
 # Material Properties
-st.sidebar.subheader("SP 24F-V3 Material Properties")
+st.sidebar.subheader("Material Properties")
 col1, col2 = st.sidebar.columns(2)
 with col1:
     f_bp = col1.number_input("f_bp (psi)", value=2400, step=50)
@@ -135,8 +135,8 @@ U_v_fire = f_vr_fire / f_prime_v_fire
 
 # Deflection Checks
 L_in = L * 12
-w_D = W_t * (p_SDL + p_CLT) / 12 + w_SW / 12 # Convert to lb/inch
-w_L = W_t * p_L / 12 # Convert to lb/inch
+w_D = (W_t * (p_SDL + p_CLT) + w_SW) / 12  # Convert lb/ft to lb/in
+w_L = (W_t * p_L) / 12  # Convert lb/ft to lb/in
 
 delta_L = (5 * w_L * (L_in)**4) / (384 * E_xapp * I_tot)
 Delta_L = L_in / delta_L
@@ -405,7 +405,7 @@ with tab4:
         st.markdown("**Normal Condition**")
         st.latex(r'f_{br} = \frac{M_{max}}{S_x} = \frac{%.0f \text{ lb-in}}{%.1f \text{ in}^3} = %.1f \text{ psi}' % (M_max_in, S_x, f_br))
         st.latex(r"f'_b = f_{bp} \cdot \lambda \cdot K_F \cdot C_V \cdot \phi_b = %.1f \text{ psi}" % f_prime_b)
-        st.latex(r'U_b = \frac{f_{br}}{f\'_b} = \frac{%.1f}{%.1f} = %.3f' % (f_br, f_prime_b, U_b))
+        st.latex(r'U_b = \frac{%.1f}{%.1f} = %.3f' % (f_br, f_prime_b, U_b))
     
     with col2:
         st.markdown("**Fire Condition**")
